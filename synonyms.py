@@ -76,7 +76,7 @@ def build_semantic_descriptors_from_files(filenames):
         with open(file, "r", encoding="utf-8") as sentences:
             sentences = sentences.read()
             sentences = sentences.replace("!",".").replace("?",".")
-            sentences = sentences.replace("$"," ").replace("&"," ").replace("*"," ").replace("#"," ").replace("/"," ").replace("_"," ").replace(","," ").replace("-"," ").replace("--"," ").replace(":"," ").replace(";"," ").replace("\n"," ").replace("("," ").replace(")"," ").replace("{"," ").replace("}"," ")
+            sentences = sentences.replace("$"," ").replace("&"," ").replace("*"," ").replace("#"," ").replace("/"," ").replace("_"," ").replace(","," ").replace("-"," ").replace("--"," ").replace(":"," ").replace(";"," ").replace("\n"," ").replace("("," ").replace(")"," ").replace("{"," ").replace("}"," ").replace("|"," ").replace("<"," ").replace(">"," ")
             sentences = sentences.lower()
             sentences = sentences.split(".")
             sentences.remove(sentences[len(sentences)-1])
@@ -112,18 +112,19 @@ def run_similarity_test(filename, semantic_descriptors, similarity_fn):
         lines = lines.read()
         lines = lines.split("\n")
         for line in lines:
-            line = line.split()
-            choices = line[2:]
-            if line[1] == most_similar_word(line[0], choices, semantic_descriptors, similarity_fn):
+            l = line.split()
+            choices = l[2:]
+            if l[1] == most_similar_word(l[0], choices, semantic_descriptors, similarity_fn):
                 #print(most_similar_word(line[0], line[2:], semantic_descriptors, similarity_fn))
                 correct_number += 1
             #else:
                 #print(most_similar_word(line[0], line[2:], semantic_descriptors, similarity_fn))
     return float((correct_number/len(lines))*100)
 
-#filenames=["D:/Golden Wind/python/synonyms/War&Peace.txt","D:/Golden Wind/python/synonyms/Swann'sWay.txt"]
-#semantic_descriptors = build_semantic_descriptors_from_files(filenames)
-#res = run_similarity_test("D:/Newfolder/python.py/Lab8/project3/test.txt", semantic_descriptors, similarity_fn)  
+filenames=["D:/Golden Wind/python/synonyms/War&Peace.txt","D:/Golden Wind/python/synonyms/Swann'sWay.txt"]
+semantic_descriptors = build_semantic_descriptors_from_files(filenames)
+res = run_similarity_test("D:/Golden Wind/python/synonyms/test.txt", semantic_descriptors, similarity_fn)  
+print(res)
 
 #"D:/Golden Wind/python/synonyms/Swann'sWay.txt"
 #"D:/Golden Wind/python/synonyms/War&Peace.txt"
